@@ -1,0 +1,12 @@
+services:
+  symfony-example:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+      # Share the host trust bundle, which includes the local IDP's mkcert CA.
+      - /etc/ssl/certs/ca-certificates.crt:/etc/ssl/certs/ca-certificates.crt:ro
+    working_dir: /app
+    extra_hosts:
+        - "example.com:host-gateway"
