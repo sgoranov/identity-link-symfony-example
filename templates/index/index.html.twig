@@ -9,12 +9,15 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello</h1>
+    <h1>Hello {{ app.token.userData.fullName ?: app.token.userData.displayName ?: app.user.userIdentifier }}</h1>
 
-    This friendly message is coming from:
+    You are signed in with Identity Link:
     <ul>
-        <li>Your controller at <code>/app/src/Controller/IndexController.php</code></li>
-        <li>Your template at <code>/app/templates/index/index.html.twig</code></li>
+        <li>User ID (<code>sub</code>): <code>{{ app.user.userIdentifier }}</code></li>
+        <li>Email: {{ app.token.userData.email ?: 'not shared' }}</li>
+        <li>Roles: {{ app.user.roles|join(', ') }}</li>
     </ul>
+
+    <p><a href="{{ logout_path() }}">Sign out</a></p>
 </div>
 {% endblock %}

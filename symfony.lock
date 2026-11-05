@@ -35,6 +35,9 @@
             "migrations/.gitignore"
         ]
     },
+    "drenso/symfony-oidc-bundle": {
+        "version": "v4.5.0"
+    },
     "phpunit/phpunit": {
         "version": "13.3",
         "recipe": {

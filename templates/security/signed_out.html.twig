@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Signed out{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+</style>
+
+<div class="example-wrapper">
+    <h1>Signed out</h1>
+
+    <p>You have signed out of this application. Identity Link keeps no session of its own, so signing in again asks for your password.</p>
+
+    <p><a href="{{ path('connect_identity_link_start') }}">Sign in</a></p>
+</div>
+{% endblock %}

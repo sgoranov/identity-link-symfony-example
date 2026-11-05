@@ -5,7 +5,8 @@ security:
 
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
-        users_in_memory: { memory: null }
+        identity_link_users:
+            id: App\Security\UserProvider
 
     firewalls:
         dev:
@@ -14,16 +15,24 @@ security:
             security: false
         main:
             lazy: true
-            provider: users_in_memory
+            provider: identity_link_users
 
-            # Activate different ways to authenticate:
-            # https://symfony.com/doc/current/security.html#the-firewall
+            # The bundle's authenticator sends visitors to login_path and completes the sign-in on check_path.
+            oidc:
+                check_path: connect_identity_link_check
+                login_path: connect_identity_link_start
+                failure_path: connect_identity_link_failed
 
-            # https://symfony.com/doc/current/security/impersonating_user.html
-            # switch_user: true
+            # Identity Link keeps no session, so signing out of the app is enough.
+            logout:
+                path: /logout
+                target: app_signed_out
 
     # Note: Only the *first* matching rule is applied
     access_control:
+        - { path: ^/connect/identity-link, roles: PUBLIC_ACCESS }
+        - { path: ^/signed-out$, roles: PUBLIC_ACCESS }
+        - { path: ^/, roles: ROLE_USER }
 
 when@test:
     security:
